@@ -1,0 +1,71 @@
+<ion-content class="ion-padding">
+  <ion-grid class="bigGrid">
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col>
+        <div class="ion-text-center">
+          <h3 class="ion-margin-bottom">Regístrate en</h3>
+        </div>
+        <div class="ion-margin-bottom ion-text-center">
+          <img class="logoTLA" src="./../../../assets/img/logoColores.png" alt="logo">
+        </div>
+        <form [formGroup]="registerCredentials" (ngSubmit)="register()">
+          <ion-item>
+            <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
+            <ion-note slot="end" color="danger" *ngIf="(name?.dirty || name?.touched) && name?.errors">Ingresa tu nombre
+            </ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="text" placeholder="Apellido" formControlName="lastname"></ion-input>
+            <ion-note slot="end" color="danger" *ngIf="(lastname?.dirty || lastname?.touched) && lastname?.errors">
+              Ingresa tu apellido</ion-note>
+          </ion-item>
+
+          <ion-radio-group class="iradioGender" value="female" formControlName="gender">
+            <ion-item lines="none">
+              <ion-label>Mujer</ion-label>
+              <ion-radio slot="start" value="female"></ion-radio>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-label>Hombre</ion-label>
+              <ion-radio slot="start" value="male"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+
+          <ion-item>
+            <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+            <ion-note slot="end" color="danger" *ngIf="(email?.dirty || email?.touched) && email?.errors">Email no
+              válido</ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+            <ion-note slot="error" *ngIf="(password?.dirty || password?.touched) && password?.errors">Password debe ser
+              de 6 caracteres, incluyendo números</ion-note>
+          </ion-item>
+
+          <p class="ion-text-center">¿Cómo qué tipo de usuario te quieres registrar?</p>
+          <ion-radio-group class="iradioUserType ion-margin-bottom" value="chofer" formControlName="userType">
+            <ion-item lines="none">
+              <ion-label>Chofer</ion-label>
+              <ion-radio slot="start" value="chofer"></ion-radio>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-label>Pasajero</ion-label>
+              <ion-radio slot="start" value="pasajero"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+
+          <ion-button expand="block" type="submit" [disabled]="!registerCredentials.valid">Registrarse</ion-button>
+        </form>
+
+
+        <div class="ion-text-center">
+          <p>¿Ya tienes cuenta? Ingresa <a [routerLink]="['/login']">aquí</a></p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

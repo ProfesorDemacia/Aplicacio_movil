@@ -1,0 +1,31 @@
+<app-header>
+</app-header>
+
+<ion-content class="ion-padding ion-text-center">
+  <h3 *ngIf="message"> {{message}}</h3>
+  <p>Ya puedes navegar por la aplicación</p>
+  <div *ngIf="userType == 'pasajero'; else fotoChofer;">
+    <img src="./../../../assets/img/tellevoappGrande.png" alt="pasajero">
+  </div>
+  <ng-template #fotoChofer>
+    <div *ngIf="userType == 'chofer'; else sinFoto;">
+      <img src="./../../../assets/img/City driver-pana.png" alt="chofer">
+    </div>
+  </ng-template>
+  <ng-template #sinFoto>
+    <div></div>
+  </ng-template>
+
+  <div *ngIf="userType == 'pasajero'; else btoChofer;">
+    <ion-button expand="block" type="button" [routerLink]="['/return-trip']">Volver a casa</ion-button>
+  </div>
+  <ng-template #btoChofer>
+    <div *ngIf="userType == 'chofer'; else sinBto;">
+      <ion-button expand="block" type="button" [routerLink]="['/return-trip']">Conducir a casa</ion-button>
+    </div>
+  </ng-template>
+  <ng-template #sinBto>
+    <div></div>
+  </ng-template>
+
+</ion-content>

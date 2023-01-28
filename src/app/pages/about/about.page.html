@@ -1,0 +1,19 @@
+<app-header>
+</app-header>
+
+<ion-content>
+  <ion-searchbar animated="true" placeholder="Buscar..." (ionChange)="buscar($event)"></ion-searchbar>
+  <ion-list lines="none" *ngIf="listaEquipo">
+    <ion-item *ngFor="let equipo of listaEquipo | filtroEquipo: busqueda">
+      <ion-avatar slot="start">
+        <img [src]="equipo.image" alt="">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{equipo.name}}</h2>
+        <h3>{{equipo.puesto | titlecase }}</h3>
+      </ion-label>
+      <ion-icon class="ff" name="arrow-forward" (click)="gotoDetails(equipo)"></ion-icon>
+    </ion-item> 
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,132 @@
+<app-header>
+</app-header>
+
+<ion-content class="ion-padding ion-text-center" [fullscreen]="true">
+
+  <div class="avatar">
+    <ion-avatar (click)="uploadAvatar()">
+      <img *ngIf="profile?.imageUrl; else placeholder_avatar;" [src]="profile.imageUrl" alt="">
+      <ng-template #placeholder_avatar>
+        <div class="noAvatar">
+          <ion-icon name="person"></ion-icon>
+        </div>
+      </ng-template>
+      <div class="changePhoto">
+        <ion-icon name="camera"></ion-icon>
+      </div>
+    </ion-avatar>
+  </div>
+
+  <form [formGroup]="profilecredentials" (ngSubmit)="updateProfile()">
+    <ion-item>
+      <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
+      <ion-note slot="end" color="danger" *ngIf="(name?.dirty || name?.touched) && name?.errors">Ingresa tu nombre
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="text" placeholder="Apellido" formControlName="lastname"></ion-input>
+      <ion-note slot="end" color="danger" *ngIf="(lastname?.dirty || lastname?.touched) && lastname?.errors">
+        Ingresa tu apellido</ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-radio-group class="iradioGender" value="female" formControlName="gender">
+        <!-- <ion-label class="ion-align-self-center">Género</ion-label> -->
+        <ion-item lines="none">
+          <ion-label>Mujer</ion-label>
+          <ion-radio slot="start" value="female"></ion-radio>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>Hombre</ion-label>
+          <ion-radio slot="start" value="male"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-item>
+
+    <ion-item *ngIf="profile?.userType == 'pasajero'">
+      <ion-input type="text" placeholder="Número de celular" formControlName="cellphone"></ion-input>
+      <ion-note slot="end" color="danger" *ngIf="(cellphone?.dirty || cellphone?.touched) && cellphone?.errors">Ingresa tu número
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="text" placeholder="Dirección" formControlName="address"></ion-input>
+      <ion-note slot="end" color="danger" *ngIf="(address?.dirty || address?.touched) && address?.errors">Ingresa tu
+        dirección
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Región</ion-label>
+      <ion-select class="userRegion" interface="popover" formControlName="region">
+        <ion-select-option value="RM">Región Metropolitana</ion-select-option>
+        <ion-select-option value="V">Región de Valparaíso</ion-select-option>
+        <ion-select-option value="VIII">Región del Bío Bío</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Comuna</ion-label>
+      <ion-select class="userRegion" interface="popover" formControlName="commune">
+        <ion-select-option value="Peñalolén">Peñalolén</ion-select-option>
+        <ion-select-option value="La Florida">La Florida</ion-select-option>
+        <ion-select-option value="Puente Alto">Puente Alto</ion-select-option>
+        <ion-select-option value="Providencia">Providencia</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Sede</ion-label>
+      <ion-select class="userRegion" interface="popover" formControlName="campus">
+        <ion-select-option value="SAV">Sede Antonio Varas</ion-select-option>
+        <ion-select-option value="SPAO">Sede Padre Alonso de Ovalle</ion-select-option>
+        <ion-select-option value="SPV">Sede Plaza Vespucio</ion-select-option>
+        <ion-select-option value="SSJ">Sede San Joaquín</ion-select-option>
+        <ion-select-option value="SV">Sede Valparaíso</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="ion-hide">
+      <ion-radio-group class="iradioUserType ion-margin-bottom" value="chofer" formControlName="userType">
+        <!-- <ion-label class="ion-align-self-center">Usuario</ion-label> -->
+        <ion-item lines="none">
+          <ion-label>Chofer</ion-label>
+          <ion-radio slot="start" value="chofer"></ion-radio>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>Pasajero</ion-label>
+          <ion-radio slot="start" value="pasajero"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-item>
+
+    <ion-item *ngIf="profile?.userType == 'chofer'">
+      <ion-input type="text" placeholder="Auto" formControlName="car"></ion-input>
+      <ion-note slot="end" color="danger" *ngIf="(car?.dirty || car?.touched) && car?.errors">Ingresa el modelo
+      </ion-note>
+    </ion-item>
+    <ion-item *ngIf="profile?.userType == 'chofer'">
+      <ion-label>$</ion-label>
+      <ion-input type="number" placeholder="Costo viaje" formControlName="tripCost"></ion-input>
+      <ion-note slot="end" color="danger" *ngIf="(tripCost?.dirty || tripCost?.touched) && tripCost?.errors">Ingresa el valor del viaje
+      </ion-note>
+    </ion-item>
+    <ion-item *ngIf="profile?.userType == 'chofer'">
+      <ion-input type="number" placeholder="Cantidad de asientos" formControlName="seats"></ion-input>
+      <ion-note slot="end" color="danger" *ngIf="(seats?.dirty || seats?.touched) && seats?.errors">Ingresa la cantidad de asientos
+      </ion-note>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="!profilecredentials.valid" >Actualizar</ion-button>
+    <!--  -->
+  </form>
+  <ion-button color="danger" expand="block" (click)="presentAlertForDelete()">
+    Eliminar cuenta
+    <ion-icon slot="end" name="trash-outline"></ion-icon>
+  </ion-button>
+</ion-content>

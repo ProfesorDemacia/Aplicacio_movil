@@ -1,0 +1,63 @@
+
+.avatar {
+    display: flex;
+    justify-content: center;
+}
+
+.avatar ion-avatar {
+    width: 6rem;
+    height: 6rem;
+}
+
+.noAvatar {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 100%;
+    background-color: #022344;
+    display: flex;
+    justify-content: center;
+}
+
+.noAvatar ion-icon {
+    height: 4rem;
+    width: 4rem;
+    align-self: center;
+    color: #E6A91B;
+}
+
+.changePhoto {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 100%;
+    background-color: #8c8c8c;
+    display: flex;
+    justify-content: center;
+    margin-top: -2rem;
+    margin-left: 4rem;
+    position: relative;
+    z-index: 25;  
+}
+
+.changePhoto ion-icon {
+    height: 1rem;
+    width: 1rem;
+    align-self: center;
+    color: white;
+}
+
+ion-radio {
+    margin-right: 10px;
+}
+
+ion-radio-group.iradioGender,
+ion-radio-group.iradioUserType {
+    display: flex;
+} 
+
+ion-note {
+    font-size: 12px;
+}
+
+ion-select.userRegion {
+    max-width: 65%;
+}

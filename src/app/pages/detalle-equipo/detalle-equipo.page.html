@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{title | titlecase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <img [src]="equipo.image" alt="">
+    <ion-card-header>
+      <ion-card-subtitle>{{equipo.puesto | titlecase}}</ion-card-subtitle>
+      <ion-card-title>{{equipo.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{equipo.description}}
+    </ion-card-content>
+  </ion-card>
+  <app-go-back-button></app-go-back-button>
+</ion-content>

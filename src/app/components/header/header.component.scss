@@ -1,0 +1,23 @@
+ion-avatar {
+    display: flex;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    margin-right: 1rem;
+}
+
+.noAvatar {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 100%;
+    background-color: #022344;
+    display: flex;
+    justify-content: center;
+}
+
+.noAvatar ion-icon {
+    height: 1.8rem;
+    width: 1.8rem;
+    align-self: center;
+    color: #E6A91B;
+}

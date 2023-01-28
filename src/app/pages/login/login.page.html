@@ -1,0 +1,49 @@
+<ion-content class="ion-padding">
+  <ion-grid class="bigGrid">
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col>
+        <div class="ion-text-center">
+          <h3 class="ion-margin-bottom">Ingresar a</h3>
+        </div>
+        <div class="ion-margin-bottom">
+          <img src="./../../../assets/img/logoColores.png" alt="logo">
+        </div>
+        <!-- <form #loginForm="ngForm" (ngSubmit)="login()">
+          <div class="ion-margin-bottom">
+            <ion-item>
+              <ion-label position="floating">Usuario o email</ion-label>
+              <ion-input type="email" [(ngModel)]="user.email" name="email" [required]="true" placeholder="correo@mail.com"
+                pattern="^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input type="password" [(ngModel)]="user.password" name="password" [required]="true"
+                pattern={{passPattern}}></ion-input>
+            </ion-item>
+          </div>
+          <ion-button shape="block" color="primary" class="ion-margin-bottom" type="submit" [disabled]="!loginForm.form.valid">Ingresar</ion-button>
+          <div class="ion-text-center">
+            <a [routerLink]="['/under-construction']">¿Olvidaste tu contraseña?</a>
+          </div>
+        </form> -->
+        <form [formGroup]="credentials" (ngSubmit)="login()">
+          <ion-item class="ion-margin-bottom">
+            <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+            <ion-note slot="error" *ngIf="(email?.dirty || email?.touched) && email?.errors">Email no válido</ion-note>
+          </ion-item>
+      
+          <ion-item class="ion-margin-bottom">
+            <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+            <ion-note slot="error" *ngIf="(password?.dirty || password?.touched) && password?.errors">Password debe ser
+              de 6 caracteres mínimo, incluyendo números</ion-note>
+          </ion-item>
+      
+          <ion-button expand="block" type="submit" [disabled]="!credentials.valid">Ingresar</ion-button>
+        </form>
+        <div class="ion-text-center">
+          <p>¿No tienes cuenta? Crea una <a [routerLink]="['/register']">aquí</a></p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

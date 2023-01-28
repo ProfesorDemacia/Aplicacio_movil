@@ -1,0 +1,49 @@
+<app-header>
+</app-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item lines="none">
+    <div>
+      <h5> El pronóstico del tiempo de hoy para {{nameCommune}}</h5>
+    </div>
+  </ion-item>
+
+  <ion-item lines="none" *ngIf="weatherStatus">
+    <ion-label>{{weatherStatus | titlecase}}</ion-label>
+    <img class="imgIcon" slot="end" src="http://openweathermap.org/img/wn/{{iconWeather}}@2x.png">
+  </ion-item>
+  <ion-row *ngIf="weatherTemperature">
+    <ion-col size="9">
+      <div>Temperatura actual:</div>
+    </ion-col>
+    <ion-col size="3">
+      <div>{{weatherTemperature['temp']}} °C</div>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="weatherTemperature">
+    <ion-col size="9">
+      <div>Sensación térmica:</div>
+    </ion-col>
+    <ion-col size="3">
+      <div>{{weatherTemperature['feels_like']}} °C</div>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="weatherTemperature">
+    <ion-col size="9">
+      <div>T° maxima:</div>
+    </ion-col>
+    <ion-col size="3">
+      <div>{{weatherTemperature['temp_max']}} °C</div>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="weatherTemperature">
+    <ion-col size="9">
+      <div>T° mínima:</div>
+    </ion-col>
+    <ion-col size="3">
+      <div>{{weatherTemperature['temp_min']}} °C</div>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

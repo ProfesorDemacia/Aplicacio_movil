@@ -1,0 +1,116 @@
+<app-header>
+</app-header>
+
+<ion-content>
+  <div *ngIf="profile && userType == 'pasajero';">
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Tu viaje sería hacia: </ion-card-subtitle>
+        <ion-card-title>{{profile?.commune}}</ion-card-title>
+        <h5 class="ion-no-margin">{{profile?.address}}</h5>
+      </ion-card-header>
+    </ion-card>
+    <div class="ion-padding" *ngIf="!driversSearchIsDone">
+      <ion-button expand="block" type="button" (click)="initPassengersFlow()">Solicitar chofer</ion-button>
+    </div>
+
+    <div *ngIf="driversSearchIsDone">
+      <ion-card>
+        <ion-card-header class="ion-padding-vertical">
+          <ion-card-title>
+            <h3 class="ion-no-margin">Choferes encontrados:</h3>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-no-padding">
+          <ion-item *ngIf="driversFound.length == 0">
+            <ion-label>Buscando choferes...</ion-label>
+          </ion-item>
+          <ion-list>
+            <ion-item *ngFor="let driver of driversFound">
+              <ion-avatar slot="start">
+                <img *ngIf="driver?.imageUrl; else no_avatar;" [src]="driver.imageUrl" alt="">
+                <ng-template #no_avatar>
+                  <img alt="nopicture" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+                </ng-template>
+              </ion-avatar>
+              <ion-label>
+                <h2>{{driver?.name}} {{driver?.lastname}}</h2>
+                <h3>Valor: ${{driver?.tripCost}}</h3>
+                <h3>Asientos: {{driver?.seats}}</h3>
+              </ion-label>
+              <ion-button type="button" [disabled]="stopDriversSearch" (click)="chooseDriver(driver)">
+                viajar
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      <div class="ion-padding" *ngIf="stopDriversSearch">
+        <ion-button expand="block" type="button" (click)="stopSearchingDrivers()">Dejar de buscar</ion-button>
+      </div>
+      <div class="ion-padding" *ngIf="!stopDriversSearch">
+        <ion-button expand="block" type="button" (click)="infiniteSearchForDrivers()">Volver a buscar</ion-button>
+      </div>
+      <div class="ion-padding" *ngIf="tripRequestCreated">
+        <ion-button color="danger" [disabled]="stopDriversSearch" expand="block" (click)="deleteTripRequest()">
+          Cancelar viaje
+        </ion-button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="profile && userType == 'chofer';">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Tu viaje tiene destino: </ion-card-subtitle>
+        <ion-card-title>{{profile?.commune}}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    <div class="ion-padding" *ngIf="!passengerSearchIsDone">
+      <ion-button expand="block" type="button" (click)="createGoHomeRequest()">Iniciar viaje de retorno</ion-button>
+    </div>
+    <div *ngIf="passengerSearchIsDone">
+      <ion-card>
+        <ion-card-header class="ion-padding-vertical">
+          <ion-card-title>
+            <h3 class="ion-no-margin">Pasajeros encontrados:</h3>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-no-padding">
+          <ion-item *ngIf="passengersFound.length == 0">
+            <ion-label>Buscando pasajeros...</ion-label>
+          </ion-item>
+          <ion-list>
+            <ion-item *ngFor="let passenger of passengersFound">
+              <ion-avatar slot="start">
+                <img *ngIf="passenger?.imageUrl; else no_avatar;" [src]="passenger.imageUrl" alt="">
+                <ng-template #no_avatar>
+                  <img alt="nopicture" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+                </ng-template>
+              </ion-avatar>
+              <ion-label>
+                <h2>{{passenger?.name}} {{passenger?.lastname}}</h2>
+                <h3>{{passenger?.address}}</h3>
+                <h3>{{passenger?.cellphone}}</h3>
+              </ion-label>
+              <ion-button type="button" [disabled]="stopPassengersSearch" href="tel:+56{{passenger?.cellphone}}">
+                <ion-icon name="call-outline"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      <div class="ion-padding" *ngIf="stopPassengersSearch">
+        <ion-button expand="block" type="button" (click)="stopSearchingPassengers()">Dejar de buscar</ion-button>
+      </div>
+      <div class="ion-padding" *ngIf="!stopPassengersSearch">
+        <ion-button expand="block" type="button" (click)="infiniteSearchForPassengers()">Volver a buscar</ion-button>
+      </div>
+      <div class="ion-padding" *ngIf="goHomeRequestCreated">
+        <ion-button color="danger" [disabled]="stopPassengersSearch" expand="block" (click)="deleteGoHomeRequest()">
+          Cancelar
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>
